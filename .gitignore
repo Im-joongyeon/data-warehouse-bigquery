@@ -3,8 +3,7 @@
 
 # GCP Service Account Key - NEVER COMMIT THIS!
 gcp/service-account-key.json
-gcp/*.json
-!gcp/service-account-key.json.example
+!gcp/service-account-key-example.json
 
 # Terraform
 terraform/.terraform/
