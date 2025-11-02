@@ -1,0 +1,50 @@
+[
+  {
+    "name": "tx_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Unique transaction identifier"
+  },
+  {
+    "name": "account_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Account ID for this transaction"
+  },
+  {
+    "name": "tx_type",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Transaction type (deposit, withdraw, transfer, interest)"
+  },
+  {
+    "name": "amount",
+    "type": "NUMERIC",
+    "mode": "REQUIRED",
+    "description": "Transaction amount"
+  },
+  {
+    "name": "balance_after",
+    "type": "NUMERIC",
+    "mode": "REQUIRED",
+    "description": "Account balance after this transaction"
+  },
+  {
+    "name": "status",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Transaction status (PENDING, COMPLETED, FAILED)"
+  },
+  {
+    "name": "created_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE",
+    "description": "Transaction creation timestamp"
+  },
+  {
+    "name": "updated_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE",
+    "description": "Last update timestamp"
+  }
+]

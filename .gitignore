@@ -1,0 +1,33 @@
+# Environment variables
+.env
+
+# GCP Service Account Key - NEVER COMMIT THIS!
+gcp/service-account-key.json
+gcp/*.json
+!gcp/service-account-key.json.example
+
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/.terraform.lock.hcl
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+tmp/
+temp/

@@ -1,0 +1,38 @@
+[
+  {
+    "name": "account_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Unique account identifier"
+  },
+  {
+    "name": "user_id",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "User ID associated with this account"
+  },
+  {
+    "name": "balance",
+    "type": "NUMERIC",
+    "mode": "REQUIRED",
+    "description": "Current account balance"
+  },
+  {
+    "name": "status",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Account status (ACTIVE, SUSPENDED, CLOSED)"
+  },
+  {
+    "name": "created_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE",
+    "description": "Account creation timestamp"
+  },
+  {
+    "name": "updated_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE",
+    "description": "Last update timestamp"
+  }
+]

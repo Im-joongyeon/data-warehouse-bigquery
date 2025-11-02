@@ -1,0 +1,48 @@
+services:
+  connect-bigquery:
+    build: .
+    ports:
+      - "8084:8083"
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: kafka:9092
+      CONNECT_REST_PORT: 8083
+      CONNECT_REST_ADVERTISED_HOST_NAME: connect-bigquery
+      CONNECT_GROUP_ID: bigquery-connect-group
+      CONNECT_CONFIG_STORAGE_TOPIC: bigquery-connect-configs
+      CONNECT_OFFSET_STORAGE_TOPIC: bigquery-connect-offsets
+      CONNECT_STATUS_STORAGE_TOPIC: bigquery-connect-status
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE: 'false'
+      CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: 'false'
+      CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keyfile.json
+    volumes:
+      - ./gcp/service-account-key.json:/tmp/keyfile.json:ro
+    networks:
+      - kafka-network
+    command:
+      - bash
+      - -c
+      - |
+        echo "Installing connectors and transforms..."
+        confluent-hub install --no-prompt --component-dir /usr/share/confluent-hub-components wepay/kafka-connect-bigquery:2.5.3
+        confluent-hub install --no-prompt --component-dir /usr/share/confluent-hub-components debezium/debezium-connector-postgresql:2.5.0
+        echo "Connectors installed successfully"
+        ls -la /usr/share/confluent-hub-components/
+        echo "Starting Kafka Connect..."
+        /etc/confluent/docker/run
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+networks:
+  kafka-network:
+    name: kafka-psql-debezium-tutorial_data-pipeline  # 여기는 _data-pipeline 네트워크로 변경
+    external: true
